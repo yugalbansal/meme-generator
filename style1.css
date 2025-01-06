@@ -119,6 +119,7 @@
     margin: 0 auto;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background-color: whitesmoke ;
   }
   
   .text-customization {
@@ -205,10 +206,20 @@
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
   }
-  
+
+  #footer-mid{
+    margin-left: 120px;
+  }
+
+  #footer-logo{
+    display: flex;
+    justify-content: center;
+    color: white;
+  }
+
   .footer-info h3 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--primary);
   }
   
