@@ -238,22 +238,92 @@ function setupFeedbackForm() {
     });
 
 
+// // Check if user is on a mobile device
+// const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+// // Set the number of images to show for mobile
+// const IMAGES_TO_SHOW_ON_MOBILE = 5; // You can adjust this value
+
+// // Initialize templates for mobile
+// function initializeMobileTemplates() {
+//     const templatesContainer = document.querySelector('.meme-templates');
+//     templatesContainer.innerHTML = ''; // Clear existing templates
+
+//     // Display 4-5 images for mobile users
+//     const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
+
+//     // Create the grid view
+//     imagesToShow.forEach(template => {
+//         const img = document.createElement('img');
+//         img.src = template.src;
+//         img.alt = template.alt;
+//         img.className = 'template';
+//         img.crossOrigin = 'anonymous';
+//         templatesContainer.appendChild(img);
+
+//         img.addEventListener('click', () => {
+//             const newImg = new Image();
+//             newImg.crossOrigin = 'anonymous';
+//             newImg.onload = () => {
+//                 currentImage = newImg;
+//                 drawMeme();
+//                 scrollToCanvas();
+//             };
+//             newImg.src = template.src;
+//         });
+//     });
+
+//     // Add "View All" button for mobile
+//     if (isMobile) {
+//         const viewAllButton = document.createElement('button');
+//         viewAllButton.textContent = 'View All Images';
+//         viewAllButton.className = 'view-all-btn';
+//         templatesContainer.appendChild(viewAllButton);
+
+//         viewAllButton.addEventListener('click', () => {
+//             // Display all images in grid view
+//             templatesContainer.innerHTML = '';
+//             TEMPLATES.forEach(template => {
+//                 const img = document.createElement('img');
+//                 img.src = template.src;
+//                 img.alt = template.alt;
+//                 img.className = 'template';
+//                 img.crossOrigin = 'anonymous';
+//                 templatesContainer.appendChild(img);
+
+//                 img.addEventListener('click', () => {
+//                     const newImg = new Image();
+//                     newImg.crossOrigin = 'anonymous';
+//                     newImg.onload = () => {
+//                         currentImage = newImg;
+//                         drawMeme();
+//                         scrollToCanvas();
+//                     };
+//                     newImg.src = template.src;
+//                 });
+//             });
+//         });
+//     }
+// }
+
+
+
 // Check if user is on a mobile device
 const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-// Set the number of images to show for mobile
-const IMAGES_TO_SHOW_ON_MOBILE = 5; // You can adjust this value
+// Set number of images to display on mobile (4 or 5 images)
+const IMAGES_TO_SHOW_ON_MOBILE = 3;
 
-// Initialize templates for mobile
+// Initialize templates
 function initializeMobileTemplates() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; // Clear existing templates
+    templatesContainer.innerHTML = ''; // Clear any existing content
 
-    // Display 4-5 images for mobile users
+    // Add 4-5 images to show initially (based on mobile or desktop)
     const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
 
-    // Create the grid view
-    imagesToShow.forEach(template => {
+    // Create the grid layout
+    imagesToShow.forEach((template) => {
         const img = document.createElement('img');
         img.src = template.src;
         img.alt = template.alt;
@@ -273,7 +343,7 @@ function initializeMobileTemplates() {
         });
     });
 
-    // Add "View All" button for mobile
+    // If user is on mobile, show "View All" button
     if (isMobile) {
         const viewAllButton = document.createElement('button');
         viewAllButton.textContent = 'View All Images';
@@ -281,30 +351,92 @@ function initializeMobileTemplates() {
         templatesContainer.appendChild(viewAllButton);
 
         viewAllButton.addEventListener('click', () => {
-            // Display all images in grid view
-            templatesContainer.innerHTML = '';
-            TEMPLATES.forEach(template => {
-                const img = document.createElement('img');
-                img.src = template.src;
-                img.alt = template.alt;
-                img.className = 'template';
-                img.crossOrigin = 'anonymous';
-                templatesContainer.appendChild(img);
-
-                img.addEventListener('click', () => {
-                    const newImg = new Image();
-                    newImg.crossOrigin = 'anonymous';
-                    newImg.onload = () => {
-                        currentImage = newImg;
-                        drawMeme();
-                        scrollToCanvas();
-                    };
-                    newImg.src = template.src;
-                });
-            });
+            showAllImages(); // Function to show all images when button is clicked
         });
     }
 }
+
+// Function to display all images
+function showAllImages() {
+    const templatesContainer = document.querySelector('.meme-templates');
+    templatesContainer.innerHTML = ''; // Clear current content
+
+    // Show all images in grid
+    TEMPLATES.forEach((template) => {
+        const img = document.createElement('img');
+        img.src = template.src;
+        img.alt = template.alt;
+        img.className = 'template';
+        img.crossOrigin = 'anonymous';
+        templatesContainer.appendChild(img);
+
+        img.addEventListener('click', () => {
+            const newImg = new Image();
+            newImg.crossOrigin = 'anonymous';
+            newImg.onload = () => {
+                currentImage = newImg;
+                drawMeme();
+                scrollToCanvas();
+            };
+            newImg.src = template.src;
+        });
+    });
+
+    // Add "Close" button to hide the "View All Images" grid
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.className = 'close-btn';
+    templatesContainer.appendChild(closeButton);
+
+    closeButton.addEventListener('click', () => {
+        closeAllImages(); // Function to close and return to initial view
+    });
+}
+
+// Function to close all images and return to the initial 4-5 images view
+function closeAllImages() {
+    const templatesContainer = document.querySelector('.meme-templates');
+    templatesContainer.innerHTML = ''; // Clear current content
+
+    // Re-add only the initial 4-5 images
+    const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
+    
+    imagesToShow.forEach((template) => {
+        const img = document.createElement('img');
+        img.src = template.src;
+        img.alt = template.alt;
+        img.className = 'template';
+        img.crossOrigin = 'anonymous';
+        templatesContainer.appendChild(img);
+
+        img.addEventListener('click', () => {
+            const newImg = new Image();
+            newImg.crossOrigin = 'anonymous';
+            newImg.onload = () => {
+                currentImage = newImg;
+                drawMeme();
+                scrollToCanvas();
+            };
+            newImg.src = template.src;
+        });
+    });
+
+    // Re-add the "View All" button for mobile devices
+    if (isMobile) {
+        const viewAllButton = document.createElement('button');
+        viewAllButton.textContent = 'View All Images';
+        viewAllButton.className = 'view-all-btn';
+        templatesContainer.appendChild(viewAllButton);
+
+        viewAllButton.addEventListener('click', () => {
+            showAllImages(); // Function to show all images when button is clicked
+        });
+    }
+}
+
+// Initialize templates on page load
+// initializeMobileTemplates();
+
 
 
 // Initialize everything
