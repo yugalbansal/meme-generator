@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Meme-O-Magic ->  Meme Generator</h1>
+            <h1>Meme-O-Magic -> Meme Generator</h1>
         </header>
 
         <main>
@@ -28,7 +28,7 @@
                     <!-- Templates will be populated by JavaScript -->
                 </div>
 
-                <div class="meme-editor">
+                <div id="canvasSection" class="meme-editor">
                     <canvas id="memeCanvas"></canvas>
 
                     <div class="text-customization">
@@ -65,21 +65,16 @@
                     <h3 id="footer-logo">Meme Generator</h3>
                     <p>Create and share your favorite memes with our easy-to-use meme generator.</p>
                     <div class="social-links">
-                        <a href="https://cdn.vectorstock.com/i/1000v/13/62/under-construction-website-page-web-banner-vector-26221362.avif"><i class="fab fa-twitter"></i></a>
-                        <a href="https://cdn.vectorstock.com/i/1000v/13/62/under-construction-website-page-web-banner-vector-26221362.avif"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/yugalbansal_1/"><i class="fab fa-instagram"></i></a>
-                        <a href="https://cdn.vectorstock.com/i/1000v/13/62/under-construction-website-page-web-banner-vector-26221362.avif"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
 
                 <div class="feedback-form">
                     <h3>Share Your Feedback</h3>
-                    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-
-                        <input type="hidden" name="access_key" value="7aa44b3d-111a-443d-8452-c64de92fd8ea" />
-                        <input type="hidden" name="subject" value="New Contact Form Submission from Web3Forms" />
-                        <input type="hidden" name="from_name" value="My Website" />
-                        <!-- More custom ization options available in the docs: https://docs.web3forms.com -->
+                    <form id="feedbackForm" action="#" method="POST">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -91,8 +86,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Rating</label>
-                            <div class="star-rating" id="starRating">
+                            <label for="rating">Rating</label>
+                            <div class="star-rating">
                                 <span class="star" data-value="1">★</span>
                                 <span class="star" data-value="2">★</span>
                                 <span class="star" data-value="3">★</span>
@@ -106,17 +101,15 @@
                             <label for="feedback">Feedback (Optional)</label>
                             <textarea id="feedback" name="feedback" rows="3"></textarea>
                         </div>
-                        <div>
-                            <button class="submit-btn" type="submit">Send Message</button>
-                        </div>
+                        <button class="submit-btn" type="submit">Send Message</button>
                     </form>
                 </div>
             </div>
-            <p class="footer-text">Made with &#10084; by Yugal</p>
+            <p class="footer-text">Made with ❤️ by Yugal</p>
         </footer>
     </div>
 
-    <script type="module" src="main1.js"></script>
+    <script type="module" src="final.js"></script>
 </body>
 
 </html>
