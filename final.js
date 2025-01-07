@@ -311,3 +311,4 @@ function initializeMobileTemplates() {
 initializeSelects();
 initializeTemplates();
 setupFeedbackForm();
+initializeMobileTemplates();
