@@ -17,16 +17,28 @@ const FONT_SIZES = [
 
 const TEMPLATES = [
     { src: 'https://i.imgflip.com/30b1gx.jpg', alt: 'Drake' },
+    { src: 'https://i.imgflip.com/4/9au02y.jpg', alt: 'Chill Guy' },
     { src: 'https://i.imgflip.com/1g8my4.jpg', alt: 'Two Buttons' },
-    { src: 'https://i.imgflip.com/1bij.jpg', alt: 'One Does Not Simply' },
     { src: 'https://i.imgflip.com/261o3j.jpg', alt: 'Buff Doge vs. Cheems' },
     { src: 'https://i.imgflip.com/3lmzyx.jpg', alt: 'Disappointed Black Guy' },
+    { src: 'https://i.imgflip.com/4/43a45p.jpg', alt: 'Buff Doge vs. Cheems' },
     { src: 'https://i.imgflip.com/4t0m5.jpg', alt: 'Evil Kermit' },
     { src: 'https://i.imgflip.com/9vct.jpg', alt: 'Jack Sparrow Being Chased' },
     { src: 'https://i.imgflip.com/28j0te.jpg', alt: 'Doge' },
     { src: 'https://i.imgflip.com/1h7in3.jpg', alt: 'Rolling Eyes' },
     { src: 'https://i.imgflip.com/2wifvo.jpg', alt: 'Unsettled Tom' },
-    { src: 'https://i.imgflip.com/1e7ql7.jpg', alt: 'Evil Kermit' }
+    { src: 'https://i.imgflip.com/1e7ql7.jpg', alt: 'Evil Kermit' },
+    { src: 'https://i.imgflip.com/4/22bdq6.jpg', alt: 'Left Exit 12 Off Ramp' },
+    { src: 'https://i.imgflip.com/4/1ur9b0.jpg', alt: 'Distracted Boyfriend' },
+    { src: 'https://i.imgflip.com/4/3oevdk.jpg', alt: 'Bernie I Am Once Again Asking For Your Support' },
+    { src: 'https://i.imgflip.com/1bij.jpg', alt: 'One Does Not Simply' },
+    { src: 'https://i.imgflip.com/4/23ls.jpg', alt: 'Disaster Girl' },
+    { src: 'https://i.imgflip.com/4/26jxvz.jpg', alt: 'Gru Plan' },
+    { src: 'https://i.imgflip.com/4/24y43o.jpg', alt: 'Change My Mind' },
+    { src: 'https://i.imgflip.com/4/9ehk.jpg', alt: 'Batman slapping robin' },
+    { src: 'https://i.imgflip.com/4/1bhk.jpg', alt: 'Success Kid' },
+    { src: 'https://i.imgflip.com/4/1b42wl.jpg', alt: 'Bike Fail' },
+    { src: 'https://i.imgflip.com/4/1wz1x.jpg', alt: 'This Is Where Id Put My Trophy If I Had One' }
 ];
 
 // DOM Elements
@@ -308,55 +320,79 @@ function setupFeedbackForm() {
 
 
 
-// Check if user is on a mobile device
 const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-// Set number of images to display on mobile (4 or 5 images)
-const IMAGES_TO_SHOW_ON_MOBILE = 3;
+const IMAGES_TO_SHOW_ON_MOBILE = 3; // Adjust as needed
 
-// Initialize templates
 function initializeMobileTemplates() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; // Clear any existing content
+    templatesContainer.innerHTML = ''; // Clear existing content
 
-    // Add 4-5 images to show initially (based on mobile or desktop)
-    const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
-
-    // Create the grid layout
-    imagesToShow.forEach((template) => {
-        const img = document.createElement('img');
-        img.src = template.src;
-        img.alt = template.alt;
-        img.className = 'template';
-        img.crossOrigin = 'anonymous';
-        templatesContainer.appendChild(img);
-
-        img.addEventListener('click', () => {
-            const newImg = new Image();
-            newImg.crossOrigin = 'anonymous';
-            newImg.onload = () => {
-                currentImage = newImg;
-                drawMeme();
-                scrollToCanvas();
-            };
-            newImg.src = template.src;
-        });
-    });
-
-    // If user is on mobile, show "View All" button
     if (isMobile) {
+        console.log("Mobile detected");
+
+        // Only display a limited number of templates for mobile
+        const imagesToShow = TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE);
+
+        // Check if the images are being sliced correctly
+        console.log("Images to show:", imagesToShow);
+
+        imagesToShow.forEach((template) => {
+            const img = document.createElement('img');
+            img.src = template.src;
+            img.alt = template.alt;
+            img.className = 'template';
+            img.crossOrigin = 'anonymous';
+            templatesContainer.appendChild(img);
+
+            img.addEventListener('click', () => {
+                const newImg = new Image();
+                newImg.crossOrigin = 'anonymous';
+                newImg.onload = () => {
+                    currentImage = newImg;
+                    drawMeme();
+                    scrollToCanvas();
+                };
+                newImg.src = template.src;
+            });
+        });
+
+        // Create the "View All Images" button for mobile users
         const viewAllButton = document.createElement('button');
         viewAllButton.textContent = 'View All Images';
         viewAllButton.className = 'view-all-btn';
         templatesContainer.appendChild(viewAllButton);
 
+        // Add event listener to the button
         viewAllButton.addEventListener('click', () => {
-            showAllImages(); // Function to show all images when button is clicked
+            showAllImages(); // Show all images when clicked
+        });
+    } else {
+        console.log("Not a mobile device");
+
+        // Desktop view: Display all templates
+        TEMPLATES.forEach((template) => {
+            const img = document.createElement('img');
+            img.src = template.src;
+            img.alt = template.alt;
+            img.className = 'template';
+            img.crossOrigin = 'anonymous';
+            templatesContainer.appendChild(img);
+
+            img.addEventListener('click', () => {
+                const newImg = new Image();
+                newImg.crossOrigin = 'anonymous';
+                newImg.onload = () => {
+                    currentImage = newImg;
+                    drawMeme();
+                    scrollToCanvas();
+                };
+                newImg.src = template.src;
+            });
         });
     }
 }
 
-// Function to display all images
 function showAllImages() {
     const templatesContainer = document.querySelector('.meme-templates');
     templatesContainer.innerHTML = ''; // Clear current content
@@ -393,14 +429,13 @@ function showAllImages() {
     });
 }
 
-// Function to close all images and return to the initial 4-5 images view
 function closeAllImages() {
     const templatesContainer = document.querySelector('.meme-templates');
     templatesContainer.innerHTML = ''; // Clear current content
 
     // Re-add only the initial 4-5 images
     const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
-    
+
     imagesToShow.forEach((template) => {
         const img = document.createElement('img');
         img.src = template.src;
@@ -434,8 +469,9 @@ function closeAllImages() {
     }
 }
 
-// Initialize templates on page load
+// Initialize templates
 // initializeMobileTemplates();
+
 
 
 
