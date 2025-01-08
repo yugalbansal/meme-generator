@@ -16,7 +16,7 @@ const FONT_SIZES = [
 ];
 
 const TEMPLATES = [
-    { src: 'https://i.imgflip.com/30b1gx.jpg', alt: 'Drake' },
+    { src: 'https://i.imgflip.com/4/24y43o.jpg', alt: 'Change My Mind' },
     { src: 'https://i.imgflip.com/4/9au02y.jpg', alt: 'Chill Guy' },
     { src: 'https://i.imgflip.com/1g8my4.jpg', alt: 'Two Buttons' },
     { src: 'https://i.imgflip.com/261o3j.jpg', alt: 'Buff Doge vs. Cheems' },
@@ -34,8 +34,8 @@ const TEMPLATES = [
     { src: 'https://i.imgflip.com/1bij.jpg', alt: 'One Does Not Simply' },
     { src: 'https://i.imgflip.com/4/23ls.jpg', alt: 'Disaster Girl' },
     { src: 'https://i.imgflip.com/4/26jxvz.jpg', alt: 'Gru Plan' },
-    { src: 'https://i.imgflip.com/4/24y43o.jpg', alt: 'Change My Mind' },
     { src: 'https://i.imgflip.com/4/9ehk.jpg', alt: 'Batman slapping robin' },
+    { src: 'https://i.imgflip.com/30b1gx.jpg', alt: 'Drake' },
     { src: 'https://i.imgflip.com/4/1bhk.jpg', alt: 'Success Kid' },
     { src: 'https://i.imgflip.com/4/1b42wl.jpg', alt: 'Bike Fail' },
     { src: 'https://i.imgflip.com/4/1wz1x.jpg', alt: 'This Is Where Id Put My Trophy If I Had One' }
