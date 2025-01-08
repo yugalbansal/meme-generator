@@ -381,6 +381,7 @@ header h1 {
     place-items: center;
   }
 
+
   .text-input-group {
     width: 100%;
     display: grid;
@@ -398,5 +399,66 @@ header h1 {
   .coming-soon-badge {
 
     right: 10%;
+  }
+}
+
+
+
+/* General button styling */
+.view-all-btn, .close-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff; /* Primary blue color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.view-all-btn:hover, .close-btn:hover {
+  background-color: #0056b3; /* Darker blue */
+  transform: translateY(-2px);
+}
+
+/* Active effect */
+.view-all-btn:active, .close-btn:active {
+  background-color: #003f8a; /* Even darker blue */
+  transform: translateY(0);
+}
+
+/* Button spacing for layout */
+.view-all-btn {
+  margin: 15px auto;
+  display: block; /* Center the button on mobile */
+  width: fit-content;
+}
+
+.close-btn {
+  margin: 10px auto;
+  display: block;
+  width: fit-content;
+  background-color: #dc3545; /* Red color for the close button */
+}
+
+.close-btn:hover {
+  background-color: #c82333; /* Darker red */
+}
+
+.close-btn:active {
+  background-color: #a71d2a; /* Even darker red */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .view-all-btn, .close-btn {
+      font-size: 14px;
+      padding: 8px 16px;
   }
 }
