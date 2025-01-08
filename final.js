@@ -1,4 +1,4 @@
-// Configuration
+
 const FONTS = [
     'Impact',
     'Arial',
@@ -41,7 +41,7 @@ const TEMPLATES = [
     { src: 'https://i.imgflip.com/4/1wz1x.jpg', alt: 'This Is Where Id Put My Trophy If I Had One' }
 ];
 
-// DOM Elements
+
 const canvas = document.getElementById('memeCanvas');
 const ctx = canvas.getContext('2d');
 const topTextInput = document.getElementById('topText');
@@ -56,13 +56,12 @@ const topSize = document.getElementById('topSize');
 const bottomSize = document.getElementById('bottomSize');
 const canvasSection = document.getElementById('canvasSection');
 
-// Set canvas dimensions
 canvas.width = 600;
 canvas.height = 600;
 
 let currentImage = null;
 
-// Initialize fonts and sizes
+
 function initializeSelects() {
     [topFont, bottomFont].forEach(select => {
         FONTS.forEach(font => {
@@ -83,7 +82,6 @@ function initializeSelects() {
     });
 }
 
-// Initialize templates
 function initializeTemplates() {
     const templatesContainer = document.querySelector('.meme-templates');
     templatesContainer.innerHTML = '';
@@ -109,7 +107,7 @@ function initializeTemplates() {
     });
 }
 
-// Handle file upload
+
 imageInput.addEventListener('change', function (e) {
     const reader = new FileReader();
     reader.onload = function (event) {
@@ -124,18 +122,18 @@ imageInput.addEventListener('change', function (e) {
     reader.readAsDataURL(e.target.files[0]);
 });
 
-// Scroll to the canvas section
+
 function scrollToCanvas() {
     canvasSection.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Draw meme function
+
 function drawMeme() {
     if (!currentImage) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw image
+   
     const ratio = Math.min(canvas.width / currentImage.width, canvas.height / currentImage.height);
     const newWidth = currentImage.width * ratio;
     const newHeight = currentImage.height * ratio;
@@ -144,7 +142,6 @@ function drawMeme() {
 
     ctx.drawImage(currentImage, x, y, newWidth, newHeight);
 
-    // Draw top text
     drawText(topTextInput.value.toUpperCase(), canvas.width / 2, 40, {
         font: topFont.value,
         size: topSize.value,
@@ -152,7 +149,7 @@ function drawMeme() {
         isBottom: false
     });
 
-    // Draw bottom text
+    
     drawText(bottomTextInput.value.toUpperCase(), canvas.width / 2, canvas.height - 40, {
         font: bottomFont.value,
         size: bottomSize.value,
@@ -161,7 +158,7 @@ function drawMeme() {
     });
 }
 
-// Helper function to draw text
+
 function drawText(text, x, y, options) {
     if (!text) return;
 
@@ -173,21 +170,21 @@ function drawText(text, x, y, options) {
     ctx.textAlign = 'center';
     ctx.textBaseline = isBottom ? 'bottom' : 'top';
 
-    // Draw stroke
+ 
     ctx.strokeText(text, x, y);
-    // Draw fill
+  
     ctx.fillText(text, x, y);
 }
 
-// Add watermark
+
 function addWatermark() {
-    ctx.font = '14px Arial';
+    ctx.font = '20px Arial';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
     ctx.textAlign = 'right';
     ctx.fillText('@Meme-O-Magic', canvas.width - 10, canvas.height - 10);
 }
 
-// Download functionality
+
 downloadBtn.addEventListener('click', function () {
     if (!currentImage) {
         alert('Please select an image first!');
@@ -208,133 +205,30 @@ downloadBtn.addEventListener('click', function () {
     drawMeme();
 });
 
-// Setup feedback form
-function setupFeedbackForm() {
-    const form = document.getElementById('feedbackForm');
-    const stars = document.querySelectorAll('.star-rating span');
 
-    stars.forEach((star, index) => {
-        star.addEventListener('click', () => {
-            stars.forEach((s, i) => {
-                s.classList.toggle('active', i <= index);
-            });
-            document.getElementById('rating').value = index + 1;
-        });
 
-        star.addEventListener('mouseover', () => {
-            stars.forEach((s, i) => {
-                s.classList.toggle('hover', i <= index);
-            });
-        });
 
-        star.addEventListener('mouseout', () => {
-            stars.forEach(s => s.classList.remove('hover'));
-        });
-    });
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        console.log('Feedback submitted:', data);
-        alert('Thank you for your feedback!');
-        form.reset();
-        stars.forEach(s => s.classList.remove('active'));
-    });
-}
-
-// Handle text inputs and customization changes
 [topTextInput, bottomTextInput, topFont, bottomFont, topColor, bottomColor, topSize, bottomSize]
     .forEach(input => {
         input.addEventListener('input', drawMeme);
     });
 
 
-// // Check if user is on a mobile device
-// const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-// // Set the number of images to show for mobile
-// const IMAGES_TO_SHOW_ON_MOBILE = 5; // You can adjust this value
-
-// // Initialize templates for mobile
-// function initializeMobileTemplates() {
-//     const templatesContainer = document.querySelector('.meme-templates');
-//     templatesContainer.innerHTML = ''; // Clear existing templates
-
-//     // Display 4-5 images for mobile users
-//     const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
-
-//     // Create the grid view
-//     imagesToShow.forEach(template => {
-//         const img = document.createElement('img');
-//         img.src = template.src;
-//         img.alt = template.alt;
-//         img.className = 'template';
-//         img.crossOrigin = 'anonymous';
-//         templatesContainer.appendChild(img);
-
-//         img.addEventListener('click', () => {
-//             const newImg = new Image();
-//             newImg.crossOrigin = 'anonymous';
-//             newImg.onload = () => {
-//                 currentImage = newImg;
-//                 drawMeme();
-//                 scrollToCanvas();
-//             };
-//             newImg.src = template.src;
-//         });
-//     });
-
-//     // Add "View All" button for mobile
-//     if (isMobile) {
-//         const viewAllButton = document.createElement('button');
-//         viewAllButton.textContent = 'View All Images';
-//         viewAllButton.className = 'view-all-btn';
-//         templatesContainer.appendChild(viewAllButton);
-
-//         viewAllButton.addEventListener('click', () => {
-//             // Display all images in grid view
-//             templatesContainer.innerHTML = '';
-//             TEMPLATES.forEach(template => {
-//                 const img = document.createElement('img');
-//                 img.src = template.src;
-//                 img.alt = template.alt;
-//                 img.className = 'template';
-//                 img.crossOrigin = 'anonymous';
-//                 templatesContainer.appendChild(img);
-
-//                 img.addEventListener('click', () => {
-//                     const newImg = new Image();
-//                     newImg.crossOrigin = 'anonymous';
-//                     newImg.onload = () => {
-//                         currentImage = newImg;
-//                         drawMeme();
-//                         scrollToCanvas();
-//                     };
-//                     newImg.src = template.src;
-//                 });
-//             });
-//         });
-//     }
-// }
-
-
-
 const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-const IMAGES_TO_SHOW_ON_MOBILE = 3; // Adjust as needed
+const IMAGES_TO_SHOW_ON_MOBILE = 3; 
 
 function initializeMobileTemplates() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; // Clear existing content
+    templatesContainer.innerHTML = ''; 
 
     if (isMobile) {
         console.log("Mobile detected");
 
-        // Only display a limited number of templates for mobile
+      
         const imagesToShow = TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE);
 
-        // Check if the images are being sliced correctly
+       
         console.log("Images to show:", imagesToShow);
 
         imagesToShow.forEach((template) => {
@@ -363,14 +257,14 @@ function initializeMobileTemplates() {
         viewAllButton.className = 'view-all-btn';
         templatesContainer.appendChild(viewAllButton);
 
-        // Add event listener to the button
+       
         viewAllButton.addEventListener('click', () => {
-            showAllImages(); // Show all images when clicked
+            showAllImages(); 
         });
     } else {
         console.log("Not a mobile device");
 
-        // Desktop view: Display all templates
+      
         TEMPLATES.forEach((template) => {
             const img = document.createElement('img');
             img.src = template.src;
@@ -395,9 +289,9 @@ function initializeMobileTemplates() {
 
 function showAllImages() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; // Clear current content
+    templatesContainer.innerHTML = ''; 
 
-    // Show all images in grid
+   
     TEMPLATES.forEach((template) => {
         const img = document.createElement('img');
         img.src = template.src;
@@ -418,22 +312,22 @@ function showAllImages() {
         });
     });
 
-    // Add "Close" button to hide the "View All Images" grid
+   
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Close';
     closeButton.className = 'close-btn';
     templatesContainer.appendChild(closeButton);
 
     closeButton.addEventListener('click', () => {
-        closeAllImages(); // Function to close and return to initial view
+        closeAllImages(); 
     });
 }
 
 function closeAllImages() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; // Clear current content
+    templatesContainer.innerHTML = ''; 
 
-    // Re-add only the initial 4-5 images
+   
     const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
 
     imagesToShow.forEach((template) => {
@@ -456,7 +350,7 @@ function closeAllImages() {
         });
     });
 
-    // Re-add the "View All" button for mobile devices
+   
     if (isMobile) {
         const viewAllButton = document.createElement('button');
         viewAllButton.textContent = 'View All Images';
@@ -464,18 +358,16 @@ function closeAllImages() {
         templatesContainer.appendChild(viewAllButton);
 
         viewAllButton.addEventListener('click', () => {
-            showAllImages(); // Function to show all images when button is clicked
+            showAllImages(); 
         });
     }
 }
 
-// Initialize templates
-// initializeMobileTemplates();
 
 
 
 
-// Initialize everything
+
 initializeSelects();
 initializeTemplates();
 setupFeedbackForm();

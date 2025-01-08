@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
+<!-- logo and header  -->
 <body>
     <div class="container">
         <header>
@@ -25,8 +25,10 @@
                 </div>
 
                 <div class="meme-templates">
-                    <!-- Templates will be populated by JavaScript -->
                 </div>
+
+                <!-- Image box  -->
+
 
                 <div id="canvasSection" class="meme-editor">
                     <canvas id="memeCanvas"></canvas>
@@ -67,14 +69,19 @@
                     <div class="social-links">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/yugalbansal_1/"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-
+<!-- feedback start -->
                 <div class="feedback-form">
                     <h3>Share Your Feedback</h3>
-                    <form id="feedbackForm" action="#" method="POST">
+                    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+
+                        <input type="hidden" name="access_key" value="7aa44b3d-111a-443d-8452-c64de92fd8ea" />
+                        <input type="hidden" name="subject" value="New Contact Form Submission from Web3Forms" />
+                        <input type="hidden" name="from_name" value="My Website" />
+                      
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -86,8 +93,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="rating">Rating</label>
-                            <div class="star-rating">
+                            <label>Rating</label>
+                            <div class="star-rating" id="starRating">
                                 <span class="star" data-value="1">★</span>
                                 <span class="star" data-value="2">★</span>
                                 <span class="star" data-value="3">★</span>
@@ -101,7 +108,9 @@
                             <label for="feedback">Feedback (Optional)</label>
                             <textarea id="feedback" name="feedback" rows="3"></textarea>
                         </div>
-                        <button class="submit-btn" type="submit">Send Message</button>
+                        <div>
+                            <button class="submit-btn" type="submit">Send Message</button>
+                        </div>
                     </form>
                 </div>
             </div>
