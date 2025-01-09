@@ -214,22 +214,21 @@ downloadBtn.addEventListener('click', function () {
     });
 
 
-const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-const IMAGES_TO_SHOW_ON_MOBILE = 3; 
+const IMAGES_TO_SHOW_ON_MOBILE = 3; // Number of images to show on mobile by default
+// let currentImage = null;
 
 function initializeMobileTemplates() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; 
+    templatesContainer.innerHTML = ''; // Clear existing content
+
+    const isMobile = window.matchMedia("only screen and (max-width: 768px)").matches;
 
     if (isMobile) {
-        console.log("Mobile detected");
+        console.log("Mobile device detected");
 
-      
+        // Show limited images
         const imagesToShow = TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE);
-
-       
-        console.log("Images to show:", imagesToShow);
 
         imagesToShow.forEach((template) => {
             const img = document.createElement('img');
@@ -244,54 +243,32 @@ function initializeMobileTemplates() {
                 newImg.crossOrigin = 'anonymous';
                 newImg.onload = () => {
                     currentImage = newImg;
-                    drawMeme();
-                    scrollToCanvas();
+                    console.log("Image clicked, drawing meme...");
+                    // drawMeme(); // Replace with your actual drawing function
                 };
                 newImg.src = template.src;
             });
         });
 
-        // Create the "View All Images" button for mobile users
+        // Add "View All Images" button
         const viewAllButton = document.createElement('button');
         viewAllButton.textContent = 'View All Images';
         viewAllButton.className = 'view-all-btn';
         templatesContainer.appendChild(viewAllButton);
 
-       
         viewAllButton.addEventListener('click', () => {
-            showAllImages(); 
+            showAllImages();
         });
     } else {
-        console.log("Not a mobile device");
-
-      
-        TEMPLATES.forEach((template) => {
-            const img = document.createElement('img');
-            img.src = template.src;
-            img.alt = template.alt;
-            img.className = 'template';
-            img.crossOrigin = 'anonymous';
-            templatesContainer.appendChild(img);
-
-            img.addEventListener('click', () => {
-                const newImg = new Image();
-                newImg.crossOrigin = 'anonymous';
-                newImg.onload = () => {
-                    currentImage = newImg;
-                    drawMeme();
-                    scrollToCanvas();
-                };
-                newImg.src = template.src;
-            });
-        });
+        console.log("Not a mobile device, showing all images");
+        showAllImages();
     }
 }
 
 function showAllImages() {
     const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; 
+    templatesContainer.innerHTML = ''; // Clear content
 
-   
     TEMPLATES.forEach((template) => {
         const img = document.createElement('img');
         img.src = template.src;
@@ -305,63 +282,27 @@ function showAllImages() {
             newImg.crossOrigin = 'anonymous';
             newImg.onload = () => {
                 currentImage = newImg;
-                drawMeme();
-                scrollToCanvas();
+                console.log("Image selected, updating canvas...");
+                // drawMeme(); // Replace with your actual drawing function
             };
             newImg.src = template.src;
         });
     });
 
-   
+    // Add "Close" button
     const closeButton = document.createElement('button');
     closeButton.textContent = 'Close';
     closeButton.className = 'close-btn';
     templatesContainer.appendChild(closeButton);
 
     closeButton.addEventListener('click', () => {
-        closeAllImages(); 
+        initializeMobileTemplates();
     });
 }
 
-function closeAllImages() {
-    const templatesContainer = document.querySelector('.meme-templates');
-    templatesContainer.innerHTML = ''; 
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initializeMobileTemplates);
 
-   
-    const imagesToShow = isMobile ? TEMPLATES.slice(0, IMAGES_TO_SHOW_ON_MOBILE) : TEMPLATES;
-
-    imagesToShow.forEach((template) => {
-        const img = document.createElement('img');
-        img.src = template.src;
-        img.alt = template.alt;
-        img.className = 'template';
-        img.crossOrigin = 'anonymous';
-        templatesContainer.appendChild(img);
-
-        img.addEventListener('click', () => {
-            const newImg = new Image();
-            newImg.crossOrigin = 'anonymous';
-            newImg.onload = () => {
-                currentImage = newImg;
-                drawMeme();
-                scrollToCanvas();
-            };
-            newImg.src = template.src;
-        });
-    });
-
-   
-    if (isMobile) {
-        const viewAllButton = document.createElement('button');
-        viewAllButton.textContent = 'View All Images';
-        viewAllButton.className = 'view-all-btn';
-        templatesContainer.appendChild(viewAllButton);
-
-        viewAllButton.addEventListener('click', () => {
-            showAllImages(); 
-        });
-    }
-}
 
 function setupFeedbackForm() {
     const form = document.getElementById('feedbackForm');
