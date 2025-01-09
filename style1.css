@@ -35,6 +35,17 @@ header {
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+header img {
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  /* margin: 0.5rem; */
 }
 
 header h1 {

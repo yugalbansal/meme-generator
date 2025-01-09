@@ -269,16 +269,59 @@ function showAllImages() {
     });
 }
 
-function setupFeedbackForm() {
-    const form = document.getElementById('feedbackForm');
-    const stars = document.querySelectorAll('.star-rating span');
+// function setupFeedbackForm() {
+//     const form = document.getElementById('feedbackForm');
+//     const stars = document.querySelectorAll('.star-rating span');
 
+//     stars.forEach((star, index) => {
+//         star.addEventListener('click', () => {
+//             stars.forEach((s, i) => {
+//                 s.classList.toggle('active', i <= index);
+//             });
+//             document.getElementById('rating').value = index + 1;
+//         });
+
+//         star.addEventListener('mouseover', () => {
+//             stars.forEach((s, i) => {
+//                 s.classList.toggle('hover', i <= index);
+//             });
+//         });
+
+//         star.addEventListener('mouseout', () => {
+//             stars.forEach(s => s.classList.remove('hover'));
+//         });
+//     });
+
+//     form.addEventListener('submit', (e) => {
+//         e.preventDefault();
+//         const formData = new FormData(form);
+//         const data = Object.fromEntries(formData.entries());
+//         console.log('Feedback submitted:', data);
+//         alert('Thank you for your feedback!');
+//         form.reset();
+//         stars.forEach(s => s.classList.remove('active'));
+//     });
+// }
+function setupFeedbackForm() {
+    const form = document.querySelector('.feedback-form'); // Select form by class
+    const stars = document.querySelectorAll('#starRating .star'); // Select stars using the ID of the container
+
+    if (!form) {
+        console.error("Form with class 'feedback-form' not found.");
+        return;
+    }
+    if (stars.length === 0) {
+        console.error("No stars found inside '#starRating'.");
+        return;
+    }
+
+    // Event listeners for stars
     stars.forEach((star, index) => {
         star.addEventListener('click', () => {
             stars.forEach((s, i) => {
                 s.classList.toggle('active', i <= index);
             });
-            document.getElementById('rating').value = index + 1;
+            document.getElementById('rating').value = index + 1; // Update hidden input value
         });
 
         star.addEventListener('mouseover', () => {
@@ -292,6 +335,7 @@ function setupFeedbackForm() {
         });
     });
 
+    // Form submission event
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(form);
@@ -299,7 +343,10 @@ function setupFeedbackForm() {
         console.log('Feedback submitted:', data);
         alert('Thank you for your feedback!');
         form.reset();
+
+        // Reset stars
         stars.forEach(s => s.classList.remove('active'));
+        document.getElementById('rating').value = 0; // Reset hidden input
     });
 }
 
