@@ -269,8 +269,46 @@ function showAllImages() {
     });
 }
 
+function setupFeedbackForm() {
+    const form = document.getElementById('feedbackForm');
+    const stars = document.querySelectorAll('.star-rating span');
+
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            stars.forEach((s, i) => {
+                s.classList.toggle('active', i <= index);
+            });
+            document.getElementById('rating').value = index + 1;
+        });
+
+        star.addEventListener('mouseover', () => {
+            stars.forEach((s, i) => {
+                s.classList.toggle('hover', i <= index);
+            });
+        });
+
+        star.addEventListener('mouseout', () => {
+            stars.forEach(s => s.classList.remove('hover'));
+        });
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        console.log('Feedback submitted:', data);
+        alert('Thank you for your feedback!');
+        form.reset();
+        stars.forEach(s => s.classList.remove('active'));
+    });
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeSelects();
     initializeTemplates();
     initializeMobileTemplates();
+    setupFeedbackForm();
 });
